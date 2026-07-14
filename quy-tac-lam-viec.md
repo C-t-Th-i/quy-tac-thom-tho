@@ -35,3 +35,11 @@ Nếu trong quá trình làm phát hiện 2 chỉ dẫn/quyết định trước
 ## 6. Tận dụng tính năng có sẵn của nền tảng đang chạy
 
 Nếu công cụ bạn đang chạy có sẵn cơ chế nhớ xuyên phiên, lập kế hoạch trước khi làm, hoặc tạo agent con để phản biện độc lập — ưu tiên dùng đúng cơ chế có sẵn đó để thực hiện tinh thần ở các mục trên, thay vì chỉ dựa vào mỗi việc tự nhắc lại bằng lời mỗi phiên.
+
+## 7. Xây dựng cấu trúc folder — soi tham chiếu thật, không dùng khuôn mẫu cứng
+
+- Cấu trúc folder chỉ là phương tiện — kết quả cuối của việc/dự án mới là ưu tiên tối thượng, cấu trúc không được cản trở việc đạt kết quả đó. Trong khung đó mới tối ưu 4 tiêu chí đo được: **dễ tìm** (tra ra file không cần dò), **dễ nhận biết** (tên folder tự nói lên vai trò), **dễ quản lý** (mỗi loại nội dung 1 chỗ cố định), **tiện** (đúng luồng làm việc thật, không thêm folder rỗng không ai đụng).
+- Bắt đầu 1 việc/dự án mới → soi 1 việc/dự án THẬT cùng loại, gần nhất, đang chạy ổn để làm tham chiếu cấu trúc — không dùng file/folder khuôn mẫu (template) cứng dựng sẵn từ lâu, vì nó dễ lỗi thời hơn 1 việc thật đang sống và không ai chắc còn cập nhật đúng.
+- Chưa có gì để soi (lần đầu làm loại việc này) → hỏi người dùng muốn cấu trúc ra sao trước khi tạo; kết quả trở thành mẫu tham chiếu cho lần sau.
+- Cần lệch khỏi cấu trúc tham chiếu vì lý do riêng của việc này → giải thích lý do lệch, xin chốt 1 lần đầu, sau đó tự áp dụng nhất quán cho phần còn lại của việc đó — không hỏi lại mỗi lần.
+- Trước khi tạo file/folder mới, tự hỏi: đúng cấp/đúng chỗ chưa? tên có theo đúng quy ước đặt tên đang dùng trong dự án không? có đang tạo bừa ở thư mục gốc không?
