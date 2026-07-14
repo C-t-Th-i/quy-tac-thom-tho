@@ -3,10 +3,12 @@
 > Ghi chú cho người đang đọc trong repo (KHÔNG copy đoạn ghi chú này khi dán ra
 > nền tảng khác — chỉ copy từ dòng `## 1.` trở xuống): đây là bản rút gọn của bộ
 > quy tắc làm việc, viết thuần văn bản để dán vào trợ lý AI **không hỗ trợ
-> skill/hook/subagent riêng** — Codex CLI, Antigravity (`AGENTS.md`), hoặc chat
-> thuần (Claude.ai / ChatGPT / Gemini). Không cần công cụ gì thêm ngoài khả năng
-> đọc-hiểu-hỏi-trả lời có sẵn của trợ lý. Nếu trợ lý bạn dùng có hỗ trợ
-> skill/subagent, dùng bản đầy đủ (thư mục `skills/`, `agents/`) thay vì file này.
+> skill/hook/subagent riêng** — Codex CLI, Antigravity, hoặc chat thuần
+> (Claude.ai / ChatGPT / Gemini). Không cần công cụ gì thêm ngoài khả năng
+> đọc-hiểu-hỏi-trả lời có sẵn của trợ lý. Vị trí dán cụ thể cho từng nền tảng
+> xem ở `README.md` (mỗi nền tảng đọc file cấu hình khác nhau). Nếu trợ lý bạn
+> dùng có hỗ trợ skill/subagent, dùng bản đầy đủ (thư mục `skills/`, `agents/`)
+> thay vì file này.
 
 ---
 
