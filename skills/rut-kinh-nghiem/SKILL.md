@@ -157,7 +157,7 @@ thêm. Số dòng file quy tắc nên đứng yên hoặc giảm — không tăn
 
 ## §5. Sổ nhật ký lỗi + phát hiện "lờn thuốc"
 
-Mỗi lỗi xử xong → ghi 1 dòng vào `nhat-ky-loi.md` (cùng folder skill này).
+Mỗi lỗi xử xong → ghi 1 dòng vào `nhat-ky-loi.md` (cùng folder skill này — đã có sẵn file rỗng, chỉ cần thêm dòng).
 Cột: ngày | lỗi gọn | loại | bậc đã xử | nơi sửa | số lần gặp.
 
 **Phát hiện lờn thuốc:** trước khi xử một lỗi mới, tra sổ. Nếu lỗi này (hoặc
