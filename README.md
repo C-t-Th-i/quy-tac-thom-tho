@@ -107,11 +107,21 @@ mang tính nhắc nhở, không bắt buộc) hoặc viết lại tương đươ
 
 ## Tự động cập nhật (tuỳ chọn)
 
-Sau khi cài, Claude sẽ hỏi có muốn tự kiểm tra bản mới của gói mỗi tuần không. Nếu
-đồng ý và nền tảng Claude Code của bạn có tính năng lên lịch (cron/schedule), Claude
-sẽ tự tạo 1 lịch chạy `git pull` trong thư mục đã clone, báo lại khi có thay đổi —
-không tự động ghi đè lại các file đã cài, bạn chủ động chạy lại skill cài đặt khi
-muốn áp bản mới.
+Sau khi cài, Claude sẽ hỏi có muốn tự kiểm tra bản mới của gói mỗi tuần không. Cách
+lên lịch khác nhau theo nền tảng bạn đang dùng:
+
+- **Claude Code**: nếu nền tảng có tính năng lên lịch (cron/schedule), Claude tự tạo
+  1 lịch chạy `git pull` trong thư mục đã clone, báo lại khi có thay đổi.
+- **Antigravity 2.0**: dùng tính năng "Scheduled Tasks" có sẵn (cú pháp cron, lệnh
+  `/schedule`) — hoạt động cả trên CLI lẫn Desktop app.
+- **Codex Desktop app** (ChatGPT app): dùng tab "Automations" — hỗ trợ lên lịch kiểu
+  cron ngay trong app.
+- **Codex CLI thuần** (chạy dòng lệnh, không qua Desktop app): bản thân CLI không có
+  tính năng lên lịch — cần nhờ cron/Task Scheduler của hệ điều hành, hoặc GitHub
+  Actions, để tự chạy `git pull` định kỳ.
+
+Dù dùng cách nào, việc tự động chỉ dừng ở "kiểm tra + báo có thay đổi" — không tự động
+ghi đè lại các file đã cài; bạn chủ động chạy lại skill cài đặt khi muốn áp bản mới.
 
 ## Dùng cho nền tảng khác Claude Code
 
