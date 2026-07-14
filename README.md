@@ -82,8 +82,33 @@ muốn áp bản mới.
 ## Dùng cho nền tảng khác Claude Code
 
 Bộ quy tắc này ban đầu viết cho Claude Code, nhưng tinh thần GRILL-trước-làm-sau
-áp dụng được cho các trợ lý AI khác (Codex CLI, Antigravity, hoặc chat thuần như
-Claude.ai/ChatGPT/Gemini) — xem file `loi-pho-quat.md` (nếu đã có trong gói) và
-hướng dẫn dán vào từng nền tảng bên dưới.
+áp dụng được cho các trợ lý AI khác. File `loi-pho-quat.md` (ở gốc gói này) là
+bản rút gọn thuần văn bản — không nhắc tới skill/hook/subagent/memory file, vì
+các nền tảng dưới đây không có các cơ chế đó. Dán trực tiếp, không cần chỉnh sửa.
 
-<!-- Mục dưới đây sẽ điền ở Pha 3 (B18) — dán vào AGENTS.md / Custom Instructions / Gem -->
+**Lưu ý chung khi copy:** chỉ copy từ dòng `## 1. Trước khi làm...` trở xuống —
+bỏ tiêu đề và đoạn ghi chú ở đầu file (đoạn đó chỉ để giải thích cho người đọc
+trong repo, tự tham chiếu "bản đầy đủ" sẽ vô nghĩa khi đứng một mình ở nơi khác).
+
+### Codex CLI / Antigravity (hoặc trợ lý CLI khác đọc file cấu hình dự án)
+
+1. Copy nội dung `loi-pho-quat.md` từ `## 1.` trở xuống (xem lưu ý trên).
+2. Dán vào file `AGENTS.md` ở gốc dự án bạn muốn áp dụng (tạo file mới nếu dự án
+   chưa có). Nếu dự án đã có `AGENTS.md` với nội dung khác → dán nối vào cuối,
+   ngăn cách bằng dòng `---` và tiêu đề `## Quy tắc làm việc chung`.
+3. Không cần cấu hình gì thêm — CLI tự đọc `AGENTS.md` ở lần chạy kế tiếp.
+
+### Claude.ai (Projects) / ChatGPT (Custom GPT hoặc Custom Instructions) / Gemini (Gem)
+
+Các nền tảng chat thuần không tự đọc file trong dự án — phải dán tay vào đúng ô
+cấu hình của từng nơi:
+
+| Nền tảng | Dán vào đâu |
+|---|---|
+| Claude.ai | Mở Project → "Project instructions" (hoặc "Custom instructions" nếu dùng ngoài Project) → dán nội dung `loi-pho-quat.md` (từ `## 1.` trở xuống) |
+| ChatGPT | Ưu tiên tạo/sửa 1 Custom GPT → tab "Instructions" (giới hạn ký tự rộng rãi) → dán. Chỉ dùng Settings → Personalization → "Custom instructions" (áp cho mọi cuộc trò chuyện) nếu thật cần — ô này giới hạn ký tự NHỎ hơn nhiều, có thể bị cắt cụt âm thầm; kiểm tra giới hạn hiện tại của tài khoản trước khi dán, rút gọn nếu cần |
+| Gemini | Gemini Gems → tạo Gem mới → ô "Instructions" → dán |
+
+Sau khi dán, mở 1 cuộc trò chuyện mới trong Project/GPT/Gem đó để bản instructions
+có hiệu lực — sửa instructions giữa chừng 1 cuộc trò chuyện đang mở thường không
+áp dụng ngược lại cho tin nhắn đã gửi trước đó.
