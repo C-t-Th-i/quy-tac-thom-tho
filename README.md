@@ -21,16 +21,21 @@ Khi điều kiện trên đúng, làm theo các bước sau, không cần hỏi 
    file đích đã tồn tại và có nội dung khác, nối thêm vào cuối, ngăn cách bằng
    dòng `---` và tiêu đề `## Quy tắc làm việc chung` (không ghi đè, không xoá
    nội dung cũ):
-   - **Codex CLI** → `AGENTS.md` ở gốc dự án (lưu ý giới hạn ~32KB tổng dung
-     lượng file hướng dẫn dự án — nếu file đã dài, rút gọn bớt nội dung cũ
-     trước khi nối thêm).
-   - **Antigravity** → `.agents/agents.md` (tạo thư mục `.agents/` nếu chưa có).
+   - **Codex CLI, Antigravity (từ bản v1.20.3 trở lên), và phần lớn agent hỗ
+     trợ chuẩn cross-tool** → `AGENTS.md` ở gốc dự án. Với Antigravity, nếu dự
+     án đã có `GEMINI.md`, file đó được ưu tiên đọc trước `AGENTS.md` — nối
+     thêm vào `GEMINI.md` thay vì `AGENTS.md` trong trường hợp đó.
    - **Claude Code** → `CLAUDE.md` ở gốc dự án.
    - **Cursor / Windsurf / nền tảng khác có quy ước file riêng** → dùng đúng
      file cấu hình chuẩn của nền tảng đó nếu bạn biết (vd `.cursor/rules/`,
      `.windsurfrules`); nếu không chắc, mặc định lưu vào `AGENTS.md` ở gốc dự
      án (chuẩn phổ quát nhiều công cụ agentic đang đọc theo).
-4. Báo lại ngắn gọn cho người dùng: đã lưu vào file nào, có nối thêm vào nội
+   - Giữ tổng file hướng dẫn dự án gọn (khuyến nghị ~300–600 dòng cho dự án
+     trưởng thành) — nếu đã dài, rút gọn bớt nội dung cũ trước khi nối thêm.
+4. Nếu nền tảng bạn đang chạy có sẵn cơ chế nhớ xuyên phiên, lập kế hoạch
+   trước khi làm, hoặc tạo agent con để phản biện độc lập — ưu tiên dùng đúng
+   cơ chế có sẵn đó thay vì chỉ dựa vào mỗi file văn bản này.
+5. Báo lại ngắn gọn cho người dùng: đã lưu vào file nào, có nối thêm vào nội
    dung cũ hay không.
 
 ## Gói này CÓ gì
@@ -117,26 +122,32 @@ vì các nền tảng dưới đây không có các cơ chế đó.
 
 ### Codex CLI (OpenAI) / Antigravity (Google) — chỉ cần dán 1 link
 
-Repo này là **public**, 2 công cụ dưới đây tự đọc được nội dung file trực tiếp
-qua link — không cần tự tay clone/copy/dán:
+Repo này là **public**. Cả 2 công cụ dưới đây (và phần lớn agent hỗ trợ chuẩn
+`AGENTS.md`) tự đọc được nội dung file trực tiếp qua link — không cần tự tay
+clone/copy/dán:
 
-> Đọc giúp tôi file này: `https://raw.githubusercontent.com/C-t-Th-i/quy-tac-thom-tho/main/quy-tac-lam-viec.md`
-> — rồi lưu nguyên nội dung vào file `AGENTS.md` ở gốc dự án này (nếu dự án đã
-> có `AGENTS.md`, nối thêm vào cuối, ngăn cách bằng dòng `---` và tiêu đề
-> `## Quy tắc làm việc chung`).
+> Cài đặt quy tắc làm việc này cho tôi: `https://github.com/C-t-Th-i/quy-tac-thom-tho`
 
-Dán nguyên câu trên vào Codex CLI hoặc Antigravity là xong. Với Antigravity, đổi
-câu cuối thành: *"...lưu vào file `.agents/agents.md` (tạo thư mục `.agents/`
-nếu chưa có)"* — vì Antigravity đọc riêng thư mục `.agents/`, không đọc
-`AGENTS.md` ở gốc dự án như Codex.
+Dán nguyên câu trên vào Codex CLI hoặc Antigravity là xong — công cụ sẽ tự đọc
+`README.md`, thấy mục "Nếu bạn là AI/trợ lý đang đọc file này", tự nhận diện
+nền tảng đang chạy và tự lưu đúng chỗ (`AGENTS.md` ở gốc dự án cho cả Codex CLI
+lẫn Antigravity từ bản v1.20.3 trở lên — 2 công cụ giờ dùng chung 1 file).
 
 **Lưu ý Codex CLI:** giới hạn tổng dung lượng file hướng dẫn dự án là 32KB
 (`project_doc_max_bytes`) — nếu `AGENTS.md` của dự án đã dài, dán thêm có thể
 bị cắt bớt phần cuối; nếu vậy, rút gọn bớt nội dung cũ.
 
+**Lưu ý Antigravity:** nếu dự án đã có `GEMINI.md`, file đó được ưu tiên đọc
+trước `AGENTS.md` — nối thêm vào `GEMINI.md` thay vì `AGENTS.md` trong trường
+hợp đó. Antigravity còn có sẵn cơ chế nhớ xuyên phiên (Knowledge Items — tự
+động, không cần cấu hình gì thêm) và Planning Mode (tự bật khi việc phức tạp) —
+2 quy tắc "chốt trải nghiệm trước khi làm" và "nhớ quyết định đã chốt" trong
+`quy-tac-lam-viec.md` sẽ cộng hưởng tốt với các cơ chế này, không xung đột.
+
 **Cách thủ công (nếu công cụ không tự đọc được link, hoặc bạn muốn kiểm tra nội
 dung trước khi dán):** mở file `quy-tac-lam-viec.md`, copy toàn bộ, dán vào
-đúng vị trí (`AGENTS.md` cho Codex, `.agents/agents.md` cho Antigravity).
+`AGENTS.md` ở gốc dự án (hoặc `GEMINI.md` nếu dùng Antigravity và dự án đã có
+sẵn file đó).
 
 ### Claude.ai (Projects) / ChatGPT (Custom GPT hoặc Custom Instructions) / Gemini (Gem)
 

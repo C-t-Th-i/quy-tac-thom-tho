@@ -31,3 +31,7 @@
 ## 5. Khi 2 điều mâu thuẫn nhau
 
 Nếu trong quá trình làm phát hiện 2 chỉ dẫn/quyết định trước đó của người dùng mâu thuẫn nhau → dừng lại, nêu rõ mâu thuẫn, hỏi người dùng chốt cách nào — không tự chọn một bên.
+
+## 6. Tận dụng tính năng có sẵn của nền tảng đang chạy
+
+Nếu công cụ bạn đang chạy có sẵn cơ chế nhớ xuyên phiên, lập kế hoạch trước khi làm, hoặc tạo agent con để phản biện độc lập — ưu tiên dùng đúng cơ chế có sẵn đó để thực hiện tinh thần ở các mục trên, thay vì chỉ dựa vào mỗi việc tự nhắc lại bằng lời mỗi phiên.
