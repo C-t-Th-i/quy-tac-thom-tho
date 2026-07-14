@@ -82,47 +82,42 @@ muốn áp bản mới.
 ## Dùng cho nền tảng khác Claude Code
 
 Bộ quy tắc này ban đầu viết cho Claude Code, nhưng tinh thần GRILL-trước-làm-sau
-áp dụng được cho các trợ lý AI khác. File `loi-pho-quat.md` (ở gốc gói này) là
-bản rút gọn thuần văn bản — không nhắc tới skill/hook/subagent/memory file, vì
-các nền tảng dưới đây không có các cơ chế đó. Dán trực tiếp, không cần chỉnh sửa.
+áp dụng được cho các trợ lý AI khác. File `quy-tac-lam-viec.md` (ở gốc gói này)
+là bản rút gọn thuần văn bản — không nhắc tới skill/hook/subagent/memory file,
+vì các nền tảng dưới đây không có các cơ chế đó.
 
-**Lưu ý chung khi copy:** chỉ copy từ dòng `## 1. Trước khi làm...` trở xuống —
-bỏ tiêu đề và đoạn ghi chú ở đầu file (đoạn đó chỉ để giải thích cho người đọc
-trong repo, tự tham chiếu "bản đầy đủ" sẽ vô nghĩa khi đứng một mình ở nơi khác).
+### Codex CLI (OpenAI) / Antigravity (Google) — chỉ cần dán 1 link
 
-### Codex CLI (OpenAI)
+Repo này là **public**, 2 công cụ dưới đây tự đọc được nội dung file trực tiếp
+qua link — không cần tự tay clone/copy/dán:
 
-1. Copy nội dung `loi-pho-quat.md` từ `## 1.` trở xuống (xem lưu ý trên).
-2. Dán vào file `AGENTS.md` ở gốc dự án bạn muốn áp dụng (tạo file mới nếu dự án
-   chưa có). Nếu dự án đã có `AGENTS.md` với nội dung khác → dán nối vào cuối,
-   ngăn cách bằng dòng `---` và tiêu đề `## Quy tắc làm việc chung`.
-3. Không cần cấu hình gì thêm — Codex tự đọc `AGENTS.md` ở lần chạy kế tiếp.
-4. **Lưu ý giới hạn dung lượng:** Codex giới hạn tổng nội dung file hướng dẫn dự
-   án ở 32KB (`project_doc_max_bytes`). Nếu `AGENTS.md` của dự án đã dài, dán
-   thêm nội dung này có thể khiến phần cuối bị cắt bớt — nếu vậy, rút gọn bớt
-   nội dung cũ hoặc tách bớt sang file khác.
+> Đọc giúp tôi file này: `https://raw.githubusercontent.com/C-t-Th-i/quy-tac-thom-tho/main/quy-tac-lam-viec.md`
+> — rồi lưu nguyên nội dung vào file `AGENTS.md` ở gốc dự án này (nếu dự án đã
+> có `AGENTS.md`, nối thêm vào cuối, ngăn cách bằng dòng `---` và tiêu đề
+> `## Quy tắc làm việc chung`).
 
-### Antigravity (Google)
+Dán nguyên câu trên vào Codex CLI hoặc Antigravity là xong. Với Antigravity, đổi
+câu cuối thành: *"...lưu vào file `.agents/agents.md` (tạo thư mục `.agents/`
+nếu chưa có)"* — vì Antigravity đọc riêng thư mục `.agents/`, không đọc
+`AGENTS.md` ở gốc dự án như Codex.
 
-Antigravity **không đọc `AGENTS.md` ở gốc dự án** — nó đọc riêng thư mục
-`.agents/` mà nó tự nhận diện, cụ thể là file `.agents/agents.md`.
+**Lưu ý Codex CLI:** giới hạn tổng dung lượng file hướng dẫn dự án là 32KB
+(`project_doc_max_bytes`) — nếu `AGENTS.md` của dự án đã dài, dán thêm có thể
+bị cắt bớt phần cuối; nếu vậy, rút gọn bớt nội dung cũ.
 
-1. Copy nội dung `loi-pho-quat.md` từ `## 1.` trở xuống (xem lưu ý trên).
-2. Tạo thư mục `.agents/` ở gốc dự án (nếu chưa có).
-3. Dán vào file `.agents/agents.md` (tạo file mới nếu chưa có). Nếu file đã có
-   nội dung khác → dán nối vào cuối, ngăn cách bằng dòng `---` và tiêu đề
-   `## Quy tắc làm việc chung`.
-4. Không cần cấu hình gì thêm — Antigravity tự đọc `.agents/agents.md` ở lần
-   chạy kế tiếp.
+**Cách thủ công (nếu công cụ không tự đọc được link, hoặc bạn muốn kiểm tra nội
+dung trước khi dán):** mở file `quy-tac-lam-viec.md`, copy toàn bộ, dán vào
+đúng vị trí (`AGENTS.md` cho Codex, `.agents/agents.md` cho Antigravity).
 
 ### Claude.ai (Projects) / ChatGPT (Custom GPT hoặc Custom Instructions) / Gemini (Gem)
 
-Các nền tảng chat thuần không tự đọc file trong dự án — phải dán tay vào đúng ô
-cấu hình của từng nơi:
+Các nền tảng này không có khả năng tự đọc 1 link rồi tự áp dụng làm cấu hình
+lâu dài cho chính nó — bắt buộc phải copy tay nội dung `quy-tac-lam-viec.md`
+rồi dán vào đúng ô cấu hình của từng nơi:
 
 | Nền tảng | Dán vào đâu |
 |---|---|
-| Claude.ai | Mở Project → "Project instructions" (hoặc "Custom instructions" nếu dùng ngoài Project) → dán nội dung `loi-pho-quat.md` (từ `## 1.` trở xuống) |
+| Claude.ai | Mở Project → "Project instructions" (hoặc "Custom instructions" nếu dùng ngoài Project) → dán toàn bộ nội dung `quy-tac-lam-viec.md` |
 | ChatGPT | Ưu tiên tạo/sửa 1 Custom GPT → tab "Instructions" (giới hạn ký tự rộng rãi) → dán. Chỉ dùng Settings → Personalization → "Custom instructions" (áp cho mọi cuộc trò chuyện) nếu thật cần — ô này giới hạn ký tự NHỎ hơn nhiều, có thể bị cắt cụt âm thầm; kiểm tra giới hạn hiện tại của tài khoản trước khi dán, rút gọn nếu cần |
 | Gemini | Gemini Gems → tạo Gem mới → ô "Instructions" → dán |
 
