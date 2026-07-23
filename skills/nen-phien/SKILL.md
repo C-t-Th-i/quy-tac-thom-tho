@@ -1,7 +1,7 @@
 ---
 name: nen-phien
 description: >-
-  Tự CHỌN 1 phương án nén phiên hợp lý nhất (nén ngữ cảnh hoặc xóa hẳn mở phiên mới) theo bối cảnh phiên, đọc bộ nhớ đã lưu tìm việc đang dở.
+  Tự CHỌN 1 phương án nén phiên hợp lý nhất (nén ngữ cảnh hoặc xóa hẳn mở phiên mới) theo bối cảnh phiên, đọc bộ nhớ đã lưu tìm việc đang dở. Skill này KHÔNG tự đo token (nếu có hook riêng `token-guard.js` ở tầng global thì hook đó lo việc nhắc ngưỡng).
   Trigger: /nen-phien, hoặc bác nói bất kỳ kiểu nào liên quan context phiên —
   NÉN/DỌN ("nén lại đi", "nén phiên", "compact lại", "compact đi", "dọn context", "dọn phiên",
   "gọn lại đi", "gọn lại phiên", "xem phiên bao lớn", "cần compact") ·
@@ -38,7 +38,16 @@ Skill này giúp bác chủ động quyết khi nào và bằng cách nào nén 
 - **5–10 tin nhắn gần nhất của bác** trong phiên này — để hiểu đang làm gì.
 - **Mục "ĐANG DỞ" trong bộ nhớ đã lưu** (file index bộ nhớ, nếu nền tảng có cơ chế này) — để biết task lớn nào đang treo.
 
-(Skill không tự đo token — chỉ đoán bối cảnh từ nội dung. Nếu có hook riêng lo cảnh báo ngưỡng token thì để hook đó lo, skill này chỉ kích hoạt khi bác chủ động hỏi hoặc gõ lệnh.)
+(Skill không tự đo token — chỉ đoán bối cảnh từ nội dung. Nếu có hook riêng lo cảnh báo ngưỡng token (vd `token-guard.js` ở tầng global) thì để hook đó lo, skill này chỉ kích hoạt khi bác chủ động hỏi hoặc gõ lệnh.)
+
+### Bước 1b. BẮT BUỘC — rà & lưu đề xuất kỹ thuật dở TRƯỚC khi build lệnh nén
+
+⚠️ Nếu bác không có thói quen đọc kỹ nội dung câu lệnh nén/xóa ngữ cảnh trước khi dán — thì KHÔNG được dựa vào việc bác tự kiểm phạm vi "giữ/bỏ" có an toàn không. An toàn phải nằm ở bước này, làm TỰ ĐỘNG, không hỏi bác:
+
+Rà lại các lượt hội thoại kể từ lần Write/cập nhật file tiến độ gần nhất, liệt kê MỌI đề xuất/quyết định kỹ thuật (kiến trúc, phương án, cấu hình, số liệu, đường dẫn quan trọng...) vừa nói bằng lời nhưng CHƯA có trong file thật (SKILL.md/spec/plan/file tiến độ) → **Write NGAY** vào file phù hợp (ưu tiên file tiến độ `_tien-do/tien-do-*.md` đang mở, hoặc tạo mới nếu chưa có).
+
+- Không có gì mới để ghi → bỏ qua bước này, không cần báo.
+- Chỉ SAU KHI xong bước này mới được sang Bước 2 (build câu lệnh nén).
 
 ### Bước 2. Đoán bối cảnh → CHỌN 1 phương án hợp lý nhất
 
@@ -159,7 +168,30 @@ Vì sao format này (ĐỪNG đổi tùy tiện):
 - Title phải có **`ĐANG DỞ`** → dễ nhận ra là việc dở khi quét bộ nhớ đầu phiên sau
 - Path phải nằm sau **`Bước kế:`** + đúng dạng `_ban-giao/ban-giao-*.md`
 
-### Bước 5. Quét dọn file bàn giao cũ (mỗi lần `/nen-phien` chạy)
+### Bước 5. Nhắc dọn kho nhớ nếu cần
+
+**2 lớp — bị động (bước này) + chủ động (cron dọn/rà lỗi định kỳ, nếu nền tảng hỗ trợ lên lịch):**
+- Lớp chủ động: cron dọn/rà lỗi định kỳ (nếu có đăng ký) quét 3 ngưỡng dưới đây + phản hồi lỗi gần đây, thấy vượt/có phát hiện thật thì tự tạo 1 tác vụ nền DUY NHẤT nhắc bác. Đọc thẳng file lịch sử phiên trên đĩa (không phụ thuộc "trí nhớ" phiên đang chạy — nén/xóa ngữ cảnh không xóa dữ liệu) nên không mất bối cảnh dù bác nén/clear nhiều lần trong ngày.
+- Lớp bị động (bước này): khi bác chủ động gõ `/nen-phien`, đếm lại y hệt 3 ngưỡng, in gọn 1 dòng nhắc — làm dự phòng nếu lớp chủ động bị bỏ lỡ, và cho bác thấy con số ngay lúc quyết định nén.
+
+Đếm nhanh (điều chỉnh path/công cụ đếm theo môi trường thật):
+- Số dòng của mục lục bộ nhớ (MEMORY.md hoặc tương đương)
+- Số file trong folder ghi chú/bộ nhớ
+- Số entry trong sổ tạm `_feedback-trong-phien.md` (cùng folder skill `rut-kinh-nghiem`)
+
+Nếu mục lục bộ nhớ **> 180 dòng** HOẶC folder ghi chú **> 70 file** HOẶC sổ tạm **> 15 entry** → thêm 1 dòng cuối output:
+
+```
+🧹 Bộ nhớ đông (X file / Y dòng) / sổ tạm Z entry — gõ "dọn kho nhớ" nếu muốn dọn trước khi nén.
+```
+
+- KHÔNG tự dọn
+- Chỉ nhắc 1 dòng, không giải thích thêm
+- Dưới cả 3 ngưỡng → bỏ qua, không in gì
+
+---
+
+### Bước 6. Quét dọn file bàn giao cũ (mỗi lần `/nen-phien` chạy)
 
 "Tự xóa khi task xong" KHÔNG khả thi (không có sự kiện báo task xong). Thay bằng **bán tự động**:
 
