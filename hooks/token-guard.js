@@ -3,8 +3,9 @@
 // 1 file, 2 chế độ (phân nhánh theo hook_event_name):
 //
 //   PostToolUse  (Lớp A — đo SAU)  : chạy sau mỗi thao tác, đọc token thật của
-//       phiên; khi chạm WARN_TOKENS (~200k) thì chèn nhắc nén phiên + gợi
-//       câu /compact. Bắt kiểu "cháy từ từ".
+//       phiên; khi chạm WARN_TOKENS (~200k) thì chèn nhắc BƯỚC 1 tự rà+lưu đề
+//       xuất kỹ thuật dở ra file THẬT, rồi mới tới BƯỚC 2 gợi câu /compact.
+//       Bắt kiểu "cháy từ từ".
 //
 //   PreToolUse   (Lớp B — chặn TRƯỚC): chạy trước Read/Bash; nếu sắp đọc 1 file
 //       to làm token vọt quá HARD_CEIL (~250k) thì CHẶN lần đọc thô đó + trả lý
@@ -17,6 +18,14 @@
 //
 // Triết lý: máy tự canh, người (cả người dùng lẫn agent) khỏi phải nhớ. Mọi lỗi
 // đều nuốt im — KHÔNG bao giờ chặn thao tác vì lỗi nội bộ của hook.
+//
+// Vì sao có BƯỚC 1: nén/xóa ngữ cảnh phiên với phạm vi hẹp có thể cắt mất 1 đề
+// xuất/quyết định kỹ thuật vừa bàn miệng nhưng chưa kịp ghi ra file — phiên sau
+// mất dấu, phải nhờ người dùng nhắc lại hoặc chụp màn hình mới khôi phục được.
+// Không thể trông cậy người dùng tự kiểm nội dung câu lệnh nén trước khi chạy —
+// nên an toàn phải nằm ở việc BẮT Claude tự lưu mọi thứ quan trọng ra file NGAY
+// khi cảnh báo bắn lên, TRƯỚC KHI đưa câu lệnh nén — vậy dù phạm vi nén sau đó
+// hẹp cỡ nào, nội dung quan trọng đã an toàn trong file rồi.
 
 const fs = require('fs');
 const os = require('os');
@@ -128,13 +137,20 @@ function handlePost(data) {
   if (warnPath) try { fs.writeFileSync(warnPath, JSON.stringify(st)); } catch {}
 
   const msg =
-    `[token guard] Phiên đã ~${k(cur)}k token (ngưỡng nhắc ${k(WARN_TOKENS)}k — ` +
-    `đã chạm mốc loãng). Hãy NHẮC người dùng nén phiên ngay. Tùy bối cảnh chọn: bước kế LIÊN QUAN CHẶT ` +
-    `→ \`/compact focus on: quyết định đã chốt + bước đang làm dở + đường dẫn file tiến độ; bỏ: log đọc file, các lần thử fail.\` ` +
-    `(nếu đang mở file tiến độ thì trỏ đúng đường dẫn vào câu lệnh). ` +
-    `ĐỔI sang việc khác → \`/clear\`. ` +
-    `⚠️ Nếu đề xuất \`/clear\`: BẮT BUỘC kèm block "🚀 Câu lệnh cho phiên sau" với 1 câu lệnh CỤ THỂ người dùng dán được ` +
-    `(quy tắc cứng skill nen-phien) — KHÔNG để \`/clear\` trống. ` +
+    `[token guard] Phiên đã ~${k(cur)}k token (ngưỡng nhắc ${k(WARN_TOKENS)}k — đã chạm mốc loãng). ` +
+    `BƯỚC 1 — BẮT BUỘC, TỰ LÀM NGAY (không hỏi, không chờ xác nhận, không đợi người dùng đọc gì): ` +
+    `rà lại các lượt hội thoại kể từ lần Write/cập nhật file tiến độ gần nhất, liệt kê MỌI đề xuất/quyết ` +
+    `định kỹ thuật (kiến trúc, phương án, cấu hình, số liệu, đường dẫn quan trọng...) vừa nói bằng lời ` +
+    `nhưng CHƯA có trong file thật (SKILL.md/spec/plan/file tiến độ) — Write NGAY vào file phù hợp ` +
+    `(ưu tiên file tiến độ đang mở, hoặc tạo mới nếu chưa có). Không có gì mới để ghi thì bỏ qua bước ` +
+    `này, không cần báo. ` +
+    `BƯỚC 2 — CHỈ SAU KHI xong Bước 1 mới đưa câu lệnh nén (người dùng có thể KHÔNG đọc kỹ nội dung câu ` +
+    `lệnh trước khi dán, nên an toàn phải nằm ở Bước 1, không nằm ở việc người dùng tự kiểm câu lệnh). ` +
+    `Tùy bối cảnh chọn: bước kế LIÊN QUAN CHẶT → \`/compact focus on: quyết định đã chốt + bước đang làm ` +
+    `dở + đường dẫn file tiến độ; bỏ: log đọc file, các lần thử fail.\` (nếu đang mở file tiến độ thì trỏ ` +
+    `đúng đường dẫn vào câu lệnh). ĐỔI sang việc khác → \`/clear\`. ` +
+    `⚠️ Nếu đề xuất \`/clear\`: BẮT BUỘC kèm block "🚀 Câu lệnh cho phiên sau" với 1 câu lệnh CỤ THỂ người ` +
+    `dùng dán được (quy tắc cứng skill nen-phien) — KHÔNG để \`/clear\` trống. ` +
     `Nếu đang giữa mạch khó (lịch sử còn cần) thì báo "nên để tích lũy, qua khúc này nén sau".`;
 
   process.stdout.write(JSON.stringify({
