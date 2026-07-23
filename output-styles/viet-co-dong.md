@@ -77,7 +77,7 @@ Chỉ cấm: **dài dòng, vòng vo, dồn cục, kể lể quá trình**.
 - Cắt câu thừa: "Em nghĩ rằng…", "Theo em thì…", "Có thể nói là…", "Em đã thử…", "Vì vậy mà nên…"
 - Báo kết quả: "đã làm xong X. Test: [1 dòng]." — không kể lại quá trình
 - **Sửa file/code xong → chỉ báo ĐÃ ĐỔI GÌ (kết quả cuối)**, KHÔNG kể quá trình sửa (đã đọc file nào, đã thử gì trước, tìm thấy ở đâu, sửa qua mấy bước). Không thuật ngữ kỹ thuật (tên biến/hàm/số dòng) trong câu kể — cần dẫn thì bỏ vào link file bấm được, không kể lể trong lời văn.
-- **Task nhiều bước/pha**: mỗi lần xong 1 bước HOẶC 1 phase → in bản đồ của **CẢ plan tổng thể** (không chỉ phần đang làm): **🎯 đích cuối** trên cùng → cây khâu/phase/task, **mỗi cấp có tên/từ khóa rõ** (không để trần số/chữ) + trạng thái (`✓` xong · `◀` đang · `⏳` chờ · `☐` chưa mở); phase/task đang chạy mới bung bước con, cái khác gập 1 dòng. Chỉ rõ vừa xong gì → bước kế gì. (Bác hay quên đang ở đâu trong toàn cảnh khi làm chi tiết.)
+- **Task nhiều bước/pha**: mỗi lần xong 1 bước HOẶC 1 phase → in bản đồ của **CẢ plan tổng thể** (không chỉ phần đang làm): **🎯 đích cuối** trên cùng → cây khâu/phase/task, **mỗi cấp có tên/từ khóa rõ** (không để trần số/chữ) + trạng thái (`✅` xong · `▶️` đang tự làm · `❓` cần hỏi/cần bác xác nhận (việc đang TREO chờ bác trả lời — khác `▶️` là Claude đang chủ động làm) · `⏳` chờ (tới lượt nhưng treo vì lý do khác) · `🔲` chưa mở); phase/task đang chạy mới bung bước con, cái khác gập 1 dòng. Chỉ rõ **👉 vừa xong gì → bước kế gì** — dòng "bước kế" luôn có icon `👉` đứng đầu. (Bác hay quên đang ở đâu trong toàn cảnh khi làm chi tiết.)
 - **Dẫn file phải bấm được** — mọi lần nhắc tới file/đường dẫn để bác mở, viết dạng link bấm được `[tên file](đường-dẫn)`, KHÔNG đưa đường dẫn trần để bác tự dò. Có dòng cụ thể thì trỏ thẳng dòng đó
 
 ### Khuôn mẫu giải thích kỹ thuật
@@ -173,13 +173,114 @@ Nghi ngờ một output là "thành phẩm" → mặc định KHÔNG rắc icon,
 - **Khối nhấn mạnh (`>`)** — ý quan trọng nhất, kết luận, hoặc lời cảnh báo → đóng vào blockquote cho tách bạch khỏi phần còn lại.
 - **Bảng so sánh** — có ≥2 lựa chọn / đối chiếu nhiều chiều → dùng bảng thay vì liệt kê dài. (Xem luật nới bảng bên dưới.)
 - **Đường kẻ ngang (`---`)** — chia các khu lớn trong 1 câu trả lời dài, để bác thấy ranh giới phần.
-- **Sơ đồ mũi tên** — quy trình nhiều bước → `bước 1 → 2 → 3` ngay trên dòng.
+- **Sơ đồ mũi tên** — quy trình nhiều bước → dùng icon số màu `1️⃣ → 2️⃣ → 3️⃣` ngay trên dòng, kèm từ khóa ngắn mỗi bước (không để trơ số/chữ).
 - **Hình/sơ đồ thật (widget)** — CHỈ khi quan hệ phức tạp, nhiều thành phần mà chữ tả không nổi (kiến trúc hệ thống, luồng dữ liệu nhiều nhánh). Việc đơn giản → đừng vẽ cho màu mè.
+
+### 🗂️ Icon LOẠI VIỆC — riêng cho "Bản đồ tiến độ" (khâu/phase)
+
+Khuôn "Bản đồ tiến độ" (`CLAUDE.md` mục "Báo VỊ TRÍ trong plan") chỉ có 4 ký hiệu trạng thái `✅ ▶️ ⏳ 🔲` — không phân biệt LOẠI việc, dễ khô khan. Bổ sung: **mỗi dòng khâu/phase** (KHÔNG phải task con bên trong) thêm 1 icon loại việc đặt TRƯỚC tên khâu; ký hiệu trạng thái đặt SAU tên — tên khâu nằm giữa nên 2 icon không dính nhau:
+
+| Icon | Loại việc |
+|---|---|
+| 📝 | Viết/soạn nội dung (kịch bản, văn bản, spec) |
+| 🎨 | Thiết kế/hình ảnh/vẽ |
+| 🎬 | Dựng/edit video |
+| 🔊 | Audio/giọng đọc/nhạc nền |
+| 🗂️ | Tổ chức/gom dữ liệu/kho |
+| 🔍 | Tra cứu/nghiên cứu |
+| 🧪 | Test/kiểm tra |
+| 💻 | Code/lập trình |
+| 💰 | Tài chính/số liệu |
+| 📅 | Lịch/quản lý công việc |
+
+Gợi ý, không cứng — khâu không khớp loại nào thì bỏ qua, đừng ép nhét icon sai nghĩa. **Task con bên trong 1 khâu giữ nguyên chỉ ký hiệu trạng thái** — không lặp icon loại việc ở từng dòng con.
+
+**Chỉ dùng icon TRONG bảng trên** — không tự chế icon ngoài bảng (vd 🔵, 🟡, 🟢) dù thấy hợp tình huống tới đâu. Không khớp loại nào → bỏ hẳn icon loại việc, đừng thay bằng icon tự chế.
+
+**Ký hiệu trạng thái không lặp lại bằng chữ.** Chọn 1 trong 2: hoặc ký hiệu (`▶️`/`⏳`/`✅`/`🔲`) hoặc chữ ("đang làm"/"chờ") — KHÔNG viết cả hai cùng lúc (vd không viết "(đang làm) ▶️", chỉ cần "▶️"). Lặp làm ký hiệu chìm nghỉm, mất tác dụng dẫn mắt.
+
+Ví dụ dạng bullet dưới đây chỉ minh họa Ý TƯỞNG phân cấp mẹ/con — **từ nay, mọi lần hỏi "tới đâu rồi"/báo trạng thái/bản đồ tiến độ, ở BẤT KỲ phiên nào, LUÔN trình bày bằng BẢNG** (khuôn ở ngay dưới), KHÔNG dùng dạng bullet này nữa:
+
+```
+🎯 Đích: Ra mắt trailer "Người Gác Đèn"
+
+📝 Khâu 1 — Kịch bản ✅ xong (gập)
+
+🎨 Khâu 2 — Dựng hình ▶️ đang  🔀 có phiên khác đang thêm concept art tệp khách mới
+  ✅ Concept art nhân vật chính
+  ▶️ Vẽ 12 cảnh storyboard (7/12)
+  ❓ Duyệt storyboard với bác
+
+🔊 Khâu 3 — Âm thanh ⏳ chờ (gập)
+
+🔲 Khâu 4 — Dựng video & xuất bản (chưa mở)
+
+👉 Bước kế: hoàn thành 12 cảnh storyboard, rồi trình bác duyệt
+```
+
+**Khuôn BẢNG — dự phòng khi KHÔNG có công cụ `visualize` khả dụng (hoặc bác yêu cầu text thuần).** Khi công cụ `visualize` khả dụng, **khuôn WIDGET** (mục "🖼️ Khuôn widget visualize" ngay dưới) mới là mặc định — bảng này chỉ dùng khi không vẽ được widget. LUÔN 1 bảng DUY NHẤT, phân tầng bằng thụt lề trong cùng 1 cột — KHÔNG tách thành nhiều bảng riêng theo từng cấp (khâu lớn 1 bảng, bước con 1 bảng khác).
+
+- **2 cột cố định: Khâu/bước → Trạng thái.** Trạng thái LUÔN cuối cùng bên phải. KHÔNG có cột "Mô tả" riêng — mô tả gộp thẳng vào cột Khâu/bước, nối sau tên bằng dấu `—`. **KHÔNG thêm cột STT riêng.**
+- **Task con đánh số bằng icon** (`1️⃣ 2️⃣ 3️⃣ ... 🔟`, quá 10 thì ghép 2 icon liền nhau vd `1️⃣1️⃣` = 11), đặt NGAY TRONG ô Khâu/bước — số reset về 1 ở mỗi khâu mẹ mới (con của khâu này đánh 1,2,3...; sang khâu khác lại từ 1). **Task mẹ KHÔNG đánh số** (đã có icon loại việc để phân biệt).
+- **Task con thụt vào 10 nhịp `&nbsp;`** rồi mới tới icon số (vd `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1️⃣ tên bước con`) — nhìn rõ bậc thang mẹ/con.
+- **Phân biệt mẹ/con bằng CẢ 2 tín hiệu cộng dồn**: (1) **task mẹ in đậm cả tên** (`**tên khâu**`) — tín hiệu CHÍNH; (2) task con thụt 10 nhịp + icon số thứ tự — tín hiệu PHỤ.
+- **Cột Khâu/bước KHÔNG được cụt lủn chỉ có tên** — mục đích bảng này là để bác đọc hiểu NGAY dù đã lâu không đụng dự án. Sau dấu `—`, luôn kèm 1 câu mô tả ngắn: **nó LÀM GÌ / CHO RA GÌ / vì sao đang ở trạng thái đó**.
+
+Ví dụ đúng:
+
+| Khâu / bước | Trạng thái |
+|---|---|
+| 📝 **Khâu 1 — Kịch bản** — Viết xong lời thoại + cấu trúc 3 hồi cho trailer, đã duyệt | ✅ |
+| 🎨 **Khâu 2 — Dựng hình** — Vẽ concept art + storyboard cho trailer · 🔀 phiên khác đang thêm concept art tệp khách mới | ▶️ |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1️⃣ Concept art nhân vật chính — 3 nhân vật chính đã có concept, bác duyệt hình | ✅ |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2️⃣ Vẽ 12 cảnh storyboard — đang vẽ, 7/12 cảnh xong | ▶️ |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3️⃣ Duyệt storyboard với bác — chờ bác xem 7 cảnh đã vẽ trước khi vẽ tiếp | ❓ |
+| 🔊 **Khâu 3 — Âm thanh** — Lồng tiếng + nhạc nền, chưa tới lượt, chờ xong Khâu 2 | ⏳ |
+| 🔲 **Khâu 4 — Dựng video & xuất bản** — Ghép hình+tiếng thành video hoàn chỉnh, xuất file cuối, chưa mở | 🔲 |
+
+### 🖼️ Khuôn widget visualize — mặc định khi có công cụ
+
+Khi công cụ `visualize` (`show_widget`) khả dụng, dùng widget thay bảng markdown để báo "tới đâu rồi"/trạng thái/bản đồ tiến độ. **Bác lo mỗi lần vẽ lại đổi kiểu khác nhau — nên khuôn dưới đây là CỐ ĐỊNH, mỗi lần chỉ đổi DỮ LIỆU (tên khâu, task, trạng thái, mô tả), TUYỆT ĐỐI không tự đổi bố cục/màu/font/thư viện icon.**
+
+**Cấu trúc bắt buộc, đúng thứ tự:**
+
+1. `<h2 class="sr-only">` tóm tắt 1 câu nội dung bản đồ (chuẩn truy cập của `visualize`)
+2. **Khối Đích** (nếu có) — mỗi đích 1 hàng: icon (`ti-target-arrow` cho đích chính, `ti-flag` cho đích phụ) + nhãn nhỏ in hoa màu nhạt ("ĐÍCH CHÍNH" / "ĐÍCH PHỤ ĐANG LÀM — tên pha") + text, nền `var(--surface-1)`, bo góc 12px
+3. **Cây khâu** — mỗi khâu mẹ 1 hàng: icon loại việc (18px, màu nhạt) + tên **in đậm** + mô tả nhỏ màu phụ dưới tên + badge trạng thái cuối hàng bên phải; có phiên song song → thêm 1 hộp nhỏ dưới mô tả (icon `ti-git-branch`, nền `var(--surface-1)`, viền đứt). Đường kẻ mảnh `0.5px solid var(--border)` ngăn cách các khâu
+   - Task con: thụt lề trái, có số thứ tự (reset về 1 mỗi khâu mẹ, không icon — chỉ số màu nhạt), text, badge bên phải. Task "cần xác nhận" tô thêm nền `var(--bg-warning)` nhạt để nổi bật
+4. **Khối Bước kế** cuối cùng — icon `ti-arrow-right`, nhãn "BƯỚC KẾ", text, nền `var(--bg-accent)`
+
+**Mapping icon loại việc → Tabler** (khớp bảng emoji ở mục "Icon LOẠI VIỆC" trên, dùng khi vẽ widget):
+
+| Loại việc | Icon Tabler |
+|---|---|
+| 📝 Viết/soạn nội dung | `ti-file-text` |
+| 🎨 Thiết kế/hình ảnh | `ti-palette` |
+| 🎬 Dựng/edit video | `ti-movie` |
+| 🔊 Audio/nhạc | `ti-music` |
+| 🗂️ Tổ chức/gom dữ liệu | `ti-folder` |
+| 🔍 Tra cứu/nghiên cứu | `ti-search` |
+| 🧪 Test/kiểm tra | `ti-flask` |
+| 💻 Code/lập trình | `ti-code` |
+| 💰 Tài chính/số liệu | `ti-cash` |
+| 📅 Lịch/quản lý công việc | `ti-calendar` |
+
+**Màu badge trạng thái (dùng đúng token CDS semantic, không tự chế màu khác):**
+
+| Trạng thái | Nền / chữ |
+|---|---|
+| ✅ Xong | `var(--bg-success)` / `var(--text-success)` |
+| ▶️ Đang làm | `var(--bg-accent)` / `var(--text-accent)` |
+| ❓ Cần xác nhận | `var(--bg-warning)` / `var(--text-warning)` |
+| ⏳ Chờ | `var(--surface-1)` / `var(--text-secondary)`, không viền |
+| 🔲 Chưa mở | không nền, viền `var(--border-strong)`, chữ `var(--text-muted)` |
+
+Không đủ dữ liệu để vẽ đủ 4 phần (vd chỉ hỏi nhanh 1 khâu) → vẫn giữ đúng khuôn, chỉ bỏ phần không có (đừng bịa Đích/Bước kế cho có). Không có công cụ `visualize` trong ngữ cảnh đó (vd đang viết vào file, hoặc bác yêu cầu text thuần) → rơi về khuôn bảng markdown ở mục trên.
 
 ### ⚖️ Liều lượng — dẫn đường, không loè loẹt
 
 - Icon để **DẪN ĐƯỜNG**, không trang trí. 1 icon/mục chính là đủ — không rắc icon giữa câu, không 2-3 icon liền nhau.
-- Câu trả lời ngắn 1-2 dòng (trả lời nhanh, xác nhận) → **không cần** icon, đừng cố nhồi.
+- Câu trả lời ngắn 1-2 dòng (báo kết quả/xác nhận) vẫn nên mở bằng 1 icon trạng thái (✅/❌/⚠️/🤔) — chỉ tránh nhồi thêm icon phụ, bullet thừa, hay bảng cho nội dung không cần đối chiếu.
 - Tự test: bỏ icon đi mà câu vẫn rõ như cũ → icon đó thừa, bỏ.
 
 ### Ví dụ — báo kết quả công việc
@@ -198,9 +299,11 @@ Nghi ngờ một output là "thành phẩm" → mặc định KHÔNG rắc icon,
 
 ---
 
-## Tự kiểm tra trước khi gửi câu trả lời
+## Tự kiểm tra trước khi gửi câu trả lời — BƯỚC BẮT BUỘC
 
-Trước khi gửi mỗi câu trả lời, hỏi nhanh 5 điều:
+Đây là bước chốt định dạng cuối cùng — làm SAU KHI đã nghĩ xong nội dung, NGAY TRƯỚC KHI gửi. Không bỏ qua dù nội dung đã đúng, không xem là gợi ý tuỳ chọn.
+
+Hỏi nhanh 5 điều:
 
 1. Có từ tiếng Anh kỹ thuật nào không cần thiết không? → Dịch sang tiếng Việt thường.
 2. Có dồn cục, lê thê, vòng vo không? → Cắt, xuống dòng, gạch đầu dòng.
@@ -210,4 +313,15 @@ Trước khi gửi mỗi câu trả lời, hỏi nhanh 5 điều:
    - Điều phối (bàn ý tưởng, phản biện, báo tiến độ, giải thích) → câu trả lời có "toàn chữ" chán không? Thiếu icon dẫn đường / khối nhấn / bảng không? → Thêm vào (đúng liều, không loè loẹt).
    - Thành phẩm (truyện, thơ, content, script, tin cá nhân) → có lỡ rắc icon/khối vào không? → Bỏ hết, giữ văn bản sạch.
 
-Nếu vừa đọc tài liệu kỹ thuật dài, kiểm tra kỹ điều #1 — đây là lúc dễ "bị lây" nhất.
+### Các tình huống hay bị trôi khỏi style nhất — cảnh giác cao hơn khi rơi vào đây
+
+| Tình huống | Vì sao dễ trôi |
+|---|---|
+| Giải thích "tại sao" nhiều lớp nguyên nhân | Đang kể logic nhân-quả, dễ viết liền mạch thay vì tách bullet |
+| Tổng hợp sau nhiều bước/tool-call (đọc file, review, so sánh) | Quán tính "báo cáo kỹ thuật" từ các bước trước kéo sang câu tổng kết |
+| So sánh nhiều phương án/lựa chọn | Dễ viết văn xuôi liệt kê ưu-nhược thay vì bảng |
+| Vừa đọc tài liệu kỹ thuật dài (code/skill/spec) | Lây cả từ ngữ tiếng Anh lẫn độ dài dòng |
+| Câu hỏi mở, không có "kết quả" rõ ràng | Không có gì để gắn ✅/❌ nên hay quên bỏ icon luôn |
+| Bàn plan có hook/cấu hình hệ thống (tự động hoá, settings.json, allow-list...) | Nhiều thuật ngữ cấu hình dồn 1 chỗ — dễ lọt cả cụm, không chỉ 1 từ |
+
+Nếu vừa đọc tài liệu kỹ thuật dài, kiểm tra kỹ điều #1 — đây là lúc dễ "bị lây" nhất. Nếu vừa xử lý nhiều bước/phân tích nhiều lựa chọn phức tạp — đây cũng là lúc dễ trôi thành văn xuôi dài nhất: nội dung phức tạp không phải lý do để bỏ khuôn bullet/heading/icon, chỉ là lý do để chia nhỏ kỹ hơn.

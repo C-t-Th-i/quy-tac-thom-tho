@@ -146,7 +146,7 @@ Trước khi thêm BẤT KỲ chữ nào vào file quy tắc:
 | Quy trình làm việc chung | file quy tắc dự án (root) |
 | Một mảng/dự án cụ thể | file quy tắc của mảng/dự án đó |
 | Quy trình làm việc cẩn thận (phản biện/plan/test) | skill `hoi-roi-lam` |
-| **Cửa lưu thứ 4 — lỗi chỉ riêng 1 skill/mảng, hẹp, không đáng đưa lên tầng chung** | Sổ/ghi chú cục bộ ngay trong chính skill/mảng đó (vd 1 mục "Lỗi đã gặp" cuối `SKILL.md` của skill đó) — tránh phình file quy tắc gốc bằng chi tiết chỉ 1 chỗ dùng |
+| **Cửa lưu thứ 4 — lỗi chỉ riêng 1 skill/mảng, hẹp, không đáng đưa lên tầng chung** | Sổ/ghi chú cục bộ ngay trong chính skill/mảng đó (1 mục "⚠️ Lỗi đã gặp" cuối `SKILL.md` của skill đó — mọi skill mới tạo đều có sẵn mục này rỗng ngay từ đầu) — tránh phình file quy tắc gốc bằng chi tiết chỉ 1 chỗ dùng |
 | **Cửa lưu thứ 5 — lỗi riêng 1 DỰ ÁN đang chạy** | Mục **"⚠️ Lỗi đã gặp — đừng lặp"** cuối **file tiến độ dự án** `_tien-do/tien-do-<slug>.md` (khung ở `hoi-roi-lam` §1.3) — phiên sau resume dự án đọc file này TRƯỚC khi làm → khỏi lặp đúng lỗi cũ của dự án đó |
 
 **3. File có phình quá không?** File đích đã quá dài hoặc có quy tắc trùng lặp
